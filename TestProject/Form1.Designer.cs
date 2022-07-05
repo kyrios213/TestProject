@@ -37,19 +37,23 @@
             this.rbtn_timeout = new System.Windows.Forms.RadioButton();
             this.lb_test = new System.Windows.Forms.Label();
             this.btn_log = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.btn_image = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.pb_profilepic = new System.Windows.Forms.PictureBox();
             this.btn_test = new System.Windows.Forms.Button();
-            this.btn_save = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.lb_nameread = new System.Windows.Forms.Label();
+            this.lb_timeinread = new System.Windows.Forms.Label();
+            this.lb_timeoutread = new System.Windows.Forms.Label();
+            this.tb_nameread = new System.Windows.Forms.TextBox();
+            this.tb_timeinread = new System.Windows.Forms.TextBox();
+            this.tb_timeoutread = new System.Windows.Forms.TextBox();
+            this.tb_idread = new System.Windows.Forms.TextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_profilepic)).BeginInit();
             this.SuspendLayout();
             // 
             // lb_input
             // 
             this.lb_input.AutoSize = true;
             this.lb_input.Font = new System.Drawing.Font("Showcard Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lb_input.Location = new System.Drawing.Point(103, 240);
+            this.lb_input.Location = new System.Drawing.Point(232, 136);
             this.lb_input.Name = "lb_input";
             this.lb_input.Size = new System.Drawing.Size(24, 18);
             this.lb_input.TabIndex = 0;
@@ -59,7 +63,7 @@
             // 
             this.tb_input1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tb_input1.Location = new System.Drawing.Point(133, 240);
+            this.tb_input1.Location = new System.Drawing.Point(262, 136);
             this.tb_input1.MaximumSize = new System.Drawing.Size(398, 23);
             this.tb_input1.MinimumSize = new System.Drawing.Size(187, 23);
             this.tb_input1.Name = "tb_input1";
@@ -68,7 +72,7 @@
             // 
             // btn_input
             // 
-            this.btn_input.Location = new System.Drawing.Point(133, 303);
+            this.btn_input.Location = new System.Drawing.Point(262, 190);
             this.btn_input.Name = "btn_input";
             this.btn_input.Size = new System.Drawing.Size(83, 23);
             this.btn_input.TabIndex = 4;
@@ -78,7 +82,7 @@
             // 
             // btn_clear
             // 
-            this.btn_clear.Location = new System.Drawing.Point(236, 303);
+            this.btn_clear.Location = new System.Drawing.Point(365, 190);
             this.btn_clear.Name = "btn_clear";
             this.btn_clear.Size = new System.Drawing.Size(84, 23);
             this.btn_clear.TabIndex = 5;
@@ -100,7 +104,7 @@
             // 
             this.rbtn_timein.AutoSize = true;
             this.rbtn_timein.Checked = true;
-            this.rbtn_timein.Location = new System.Drawing.Point(154, 278);
+            this.rbtn_timein.Location = new System.Drawing.Point(279, 165);
             this.rbtn_timein.Name = "rbtn_timein";
             this.rbtn_timein.Size = new System.Drawing.Size(66, 19);
             this.rbtn_timein.TabIndex = 7;
@@ -112,7 +116,7 @@
             // rbtn_timeout
             // 
             this.rbtn_timeout.AutoSize = true;
-            this.rbtn_timeout.Location = new System.Drawing.Point(231, 278);
+            this.rbtn_timeout.Location = new System.Drawing.Point(365, 165);
             this.rbtn_timeout.Name = "rbtn_timeout";
             this.rbtn_timeout.Size = new System.Drawing.Size(74, 19);
             this.rbtn_timeout.TabIndex = 8;
@@ -130,7 +134,7 @@
             // 
             // btn_log
             // 
-            this.btn_log.Location = new System.Drawing.Point(22, 408);
+            this.btn_log.Location = new System.Drawing.Point(374, 408);
             this.btn_log.Name = "btn_log";
             this.btn_log.Size = new System.Drawing.Size(75, 23);
             this.btn_log.TabIndex = 10;
@@ -138,36 +142,19 @@
             this.btn_log.UseVisualStyleBackColor = true;
             this.btn_log.Click += new System.EventHandler(this.btn_log_Click);
             // 
-            // pictureBox1
+            // pb_profilepic
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(133, 12);
-            this.pictureBox1.MaximumSize = new System.Drawing.Size(192, 192);
-            this.pictureBox1.MinimumSize = new System.Drawing.Size(192, 192);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(192, 192);
-            this.pictureBox1.TabIndex = 11;
-            this.pictureBox1.TabStop = false;
-            // 
-            // btn_image
-            // 
-            this.btn_image.Location = new System.Drawing.Point(331, 12);
-            this.btn_image.Name = "btn_image";
-            this.btn_image.Size = new System.Drawing.Size(75, 23);
-            this.btn_image.TabIndex = 12;
-            this.btn_image.Text = "Upload";
-            this.btn_image.UseVisualStyleBackColor = true;
-            this.btn_image.Click += new System.EventHandler(this.btn_image_Click);
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(331, 89);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(150, 23);
-            this.textBox1.TabIndex = 13;
+            this.pb_profilepic.Location = new System.Drawing.Point(22, 55);
+            this.pb_profilepic.MaximumSize = new System.Drawing.Size(192, 192);
+            this.pb_profilepic.MinimumSize = new System.Drawing.Size(192, 192);
+            this.pb_profilepic.Name = "pb_profilepic";
+            this.pb_profilepic.Size = new System.Drawing.Size(192, 192);
+            this.pb_profilepic.TabIndex = 11;
+            this.pb_profilepic.TabStop = false;
             // 
             // btn_test
             // 
-            this.btn_test.Location = new System.Drawing.Point(103, 408);
+            this.btn_test.Location = new System.Drawing.Point(461, 408);
             this.btn_test.Name = "btn_test";
             this.btn_test.Size = new System.Drawing.Size(75, 23);
             this.btn_test.TabIndex = 14;
@@ -175,26 +162,83 @@
             this.btn_test.UseVisualStyleBackColor = true;
             this.btn_test.Click += new System.EventHandler(this.btn_test_Click);
             // 
-            // btn_save
+            // lb_nameread
             // 
-            this.btn_save.Location = new System.Drawing.Point(331, 51);
-            this.btn_save.Name = "btn_save";
-            this.btn_save.Size = new System.Drawing.Size(75, 23);
-            this.btn_save.TabIndex = 15;
-            this.btn_save.Text = "Save";
-            this.btn_save.UseVisualStyleBackColor = true;
-            this.btn_save.Click += new System.EventHandler(this.btn_save_Click);
+            this.lb_nameread.AutoSize = true;
+            this.lb_nameread.Location = new System.Drawing.Point(22, 301);
+            this.lb_nameread.Name = "lb_nameread";
+            this.lb_nameread.Size = new System.Drawing.Size(39, 15);
+            this.lb_nameread.TabIndex = 15;
+            this.lb_nameread.Text = "Name";
+            // 
+            // lb_timeinread
+            // 
+            this.lb_timeinread.AutoSize = true;
+            this.lb_timeinread.Location = new System.Drawing.Point(22, 333);
+            this.lb_timeinread.Name = "lb_timeinread";
+            this.lb_timeinread.Size = new System.Drawing.Size(46, 15);
+            this.lb_timeinread.TabIndex = 16;
+            this.lb_timeinread.Text = "Time In";
+            // 
+            // lb_timeoutread
+            // 
+            this.lb_timeoutread.AutoSize = true;
+            this.lb_timeoutread.Location = new System.Drawing.Point(22, 365);
+            this.lb_timeoutread.Name = "lb_timeoutread";
+            this.lb_timeoutread.Size = new System.Drawing.Size(56, 15);
+            this.lb_timeoutread.TabIndex = 17;
+            this.lb_timeoutread.Text = "Time Out";
+            // 
+            // tb_nameread
+            // 
+            this.tb_nameread.Location = new System.Drawing.Point(79, 298);
+            this.tb_nameread.Name = "tb_nameread";
+            this.tb_nameread.ReadOnly = true;
+            this.tb_nameread.Size = new System.Drawing.Size(135, 23);
+            this.tb_nameread.TabIndex = 19;
+            this.tb_nameread.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // tb_timeinread
+            // 
+            this.tb_timeinread.Location = new System.Drawing.Point(79, 330);
+            this.tb_timeinread.Name = "tb_timeinread";
+            this.tb_timeinread.ReadOnly = true;
+            this.tb_timeinread.Size = new System.Drawing.Size(135, 23);
+            this.tb_timeinread.TabIndex = 20;
+            this.tb_timeinread.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // tb_timeoutread
+            // 
+            this.tb_timeoutread.Location = new System.Drawing.Point(79, 362);
+            this.tb_timeoutread.Name = "tb_timeoutread";
+            this.tb_timeoutread.ReadOnly = true;
+            this.tb_timeoutread.Size = new System.Drawing.Size(135, 23);
+            this.tb_timeoutread.TabIndex = 21;
+            this.tb_timeoutread.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // tb_idread
+            // 
+            this.tb_idread.Location = new System.Drawing.Point(63, 253);
+            this.tb_idread.Name = "tb_idread";
+            this.tb_idread.ReadOnly = true;
+            this.tb_idread.Size = new System.Drawing.Size(100, 23);
+            this.tb_idread.TabIndex = 22;
+            this.tb_idread.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(548, 443);
-            this.Controls.Add(this.btn_save);
+            this.Controls.Add(this.tb_idread);
+            this.Controls.Add(this.tb_timeoutread);
+            this.Controls.Add(this.tb_timeinread);
+            this.Controls.Add(this.tb_nameread);
+            this.Controls.Add(this.lb_timeoutread);
+            this.Controls.Add(this.lb_timeinread);
+            this.Controls.Add(this.lb_nameread);
             this.Controls.Add(this.btn_test);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.btn_image);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.pb_profilepic);
             this.Controls.Add(this.btn_log);
             this.Controls.Add(this.lb_test);
             this.Controls.Add(this.rbtn_timeout);
@@ -209,7 +253,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_profilepic)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -226,10 +270,14 @@
         private RadioButton rbtn_timeout;
         private Label lb_test;
         private Button btn_log;
-        private PictureBox pictureBox1;
-        private Button btn_image;
-        private TextBox textBox1;
+        private PictureBox pb_profilepic;
         private Button btn_test;
-        private Button btn_save;
+        private Label lb_nameread;
+        private Label lb_timeinread;
+        private Label lb_timeoutread;
+        private TextBox tb_nameread;
+        private TextBox tb_timeinread;
+        private TextBox tb_timeoutread;
+        private TextBox tb_idread;
     }
 }

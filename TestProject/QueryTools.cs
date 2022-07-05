@@ -311,8 +311,87 @@ namespace TestProject
                     MessageBox.Show(ex.ToString());
                     return null;
                 }
+            }          
+        }
+
+        public string Get_Image(string employee_id)
+        {
+            NpgsqlConnection conn = GetConnection();
+            string sql = "SELECT (image) FROM employee WHERE employee_number = @employee_id";
+            using (NpgsqlCommand cmd = new NpgsqlCommand(sql, conn))
+            {
+                try
+                {
+                    conn.Open();
+                    cmd.Parameters.AddWithValue("employee_id", employee_id);
+
+                    var reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        var image = reader.GetString(0);
+                        return image;
+                    }
+                    else
+                    {
+                        return "null";
+                    }
+                }
+                catch
+                {
+                    return "null";
+                }
             }
         }
+
+        public string Get_Timein(int employee_id, string date)
+        {
+            NpgsqlConnection conn = GetConnection();
+            string sql = "SELECT (time_in) FROM timeinout WHERE employee_id = @employee_id AND date = @date";
+            using (NpgsqlCommand cmd = new NpgsqlCommand(sql, conn))
+            {
+                conn.Open();
+                cmd.Parameters.AddWithValue("employee_id", employee_id);
+                cmd.Parameters.AddWithValue("date", date);
+
+                var reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    string time_in = reader.GetString(0);
+                    return time_in;
+                }
+                else
+                {
+                    return " ";
+                }
+            }
+        }
+
+        public string Get_Timeout(int employee_id, string date)
+        {
+            NpgsqlConnection conn = GetConnection();
+            string sql = "SELECT (time_out) FROM timeinout WHERE employee_id = @employee_id AND date = @date";
+            using (NpgsqlCommand cmd = new NpgsqlCommand(sql, conn))
+            {
+                conn.Open();
+                cmd.Parameters.AddWithValue("employee_id", employee_id);
+                cmd.Parameters.AddWithValue("date", date);
+
+                var reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    string time_out = reader.GetString(0);
+                    return time_out;
+                }
+                else
+                {
+                    return " ";
+                }
+            }
+        }
+
         // End Of Get Employee Data Functions
 
         // End of Get Functions

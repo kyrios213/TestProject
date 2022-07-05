@@ -23,7 +23,7 @@ namespace TestProject
             string connectionString = ConfigurationManager.ConnectionStrings["MyKey"].ConnectionString;
             return new NpgsqlConnection(connectionString);
         }
-        
+   
         //readonly NpgsqlConnection conn = new("Port=5433;Host=127.0.0.1;Database=test_cs;Username=postgres;Password=shadow213;Persist Security Info=True");
 
         // Buttons
@@ -59,9 +59,15 @@ namespace TestProject
                 }
                 else
                 {
-
                     if (qt.Add_Timein(employee_id, currentDate.ToString(), currentTime.ToString()))
                     {
+                        if (qt.Get_Image(idInput) != "null")
+                        {
+                            pb_profilepic.Image = Image.FromFile(qt.Get_Image(idInput));
+                        }       
+                        tb_idread.Text = idInput;
+                        tb_nameread.Text = $"{qt.Get_Employee_First_Name(employee_id)} {qt.Get_Employee_Last_Name(employee_id)}";
+                        tb_timeinread.Text = currentTime.ToString();
                         MessageBox.Show("Timed In");
                         tb_input1.Clear();
                     }
@@ -81,6 +87,14 @@ namespace TestProject
                     {
                         if (qt.Add_Timeout(employee_id, currentDate.ToString(), currentTime.ToString()))
                         {
+                            if (qt.Get_Image(idInput) != "null")
+                            {
+                                pb_profilepic.Image = Image.FromFile(qt.Get_Image(idInput));
+                            }
+                            tb_idread.Text = idInput;
+                            tb_nameread.Text = $"{qt.Get_Employee_First_Name(employee_id)} {qt.Get_Employee_Last_Name(employee_id)}";
+                            tb_timeinread.Text = qt.Get_Timein(employee_id, currentDate.ToString());
+                            tb_timeoutread.Text = currentTime.ToString();
                             MessageBox.Show("Timed Out");
                             tb_input1.Clear();
 
@@ -173,91 +187,6 @@ namespace TestProject
                 }
             }
         }     
-
-        // IMG resize
-        private static System.Drawing.Image resizeImage(System.Drawing.Image imgToResize, Size size)
-        {
-            //Get the image current width  
-            int sourceWidth = imgToResize.Width;
-            //Get the image current height  
-            int sourceHeight = imgToResize.Height;
-            float nPercent = 0;
-            float nPercentW = 0;
-            float nPercentH = 0;
-            //Calulate  width with new desired size  
-            nPercentW = ((float)size.Width / (float)sourceWidth);
-            //Calculate height with new desired size  
-            nPercentH = ((float)size.Height / (float)sourceHeight);
-            if (nPercentH < nPercentW)
-                nPercent = nPercentH;
-            else
-                nPercent = nPercentW;
-            //New Width  
-            int destWidth = (int)(sourceWidth * nPercent);
-            //New Height  
-            int destHeight = (int)(sourceHeight * nPercent);
-            Bitmap b = new Bitmap(destWidth, destHeight);
-            Graphics g = Graphics.FromImage((System.Drawing.Image)b);
-            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-            // Draw image with new width and height  
-            g.DrawImage(imgToResize, 0, 0, destWidth, destHeight);
-            g.Dispose();
-            return (System.Drawing.Image)b;
-        }
-
-        Image? img;
-        string? fileName;
-        private void btn_image_Click(object sender, EventArgs e)
-        {
-            string directory = AppDomain.CurrentDomain.BaseDirectory + "/images/";
-            if (!Directory.Exists(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
-
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp)|*.jpg; *.jpeg; *.gif; *.bmp";
-            ofd.InitialDirectory = @"C:\";
-            ofd.Title = "Save Image";
-            if (ofd.ShowDialog() == DialogResult.OK)
-            {
-                Bitmap b = new Bitmap(ofd.FileName);
-                img = resizeImage(b, new Size(192, 192));
-                pictureBox1.Image = img;
-                fileName = ofd.SafeFileName;
-
-
-                string pathFile = directory + fileName;
-                img.Save(pathFile);
-            }            
-        }
-
-        private void btn_save_Click(object sender, EventArgs e)
-        {
-            string directory = AppDomain.CurrentDomain.BaseDirectory + "/images/";
-            if (!Directory.Exists(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
-
-            SaveFileDialog sf = new SaveFileDialog();
-            sf.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp)|*.jpg; *.jpeg; *.gif; *.bmp";
-            sf.InitialDirectory = Path.GetFullPath(directory);
-            //sf.RestoreDirectory = true;
-            sf.FileName = fileName;
-            sf.AutoUpgradeEnabled = true;
-
-            if (sf.ShowDialog() == DialogResult.OK)
-            {
-
-                string pathFile = directory + fileName;
-                if (img != null)
-                {
-                    img.Save(pathFile);
-                }
-                else { }
-            }
-        }
 
         private void btn_test_Click(object sender, EventArgs e)
         {

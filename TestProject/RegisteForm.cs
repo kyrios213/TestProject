@@ -8,6 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Npgsql;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
+using System.Reflection;
+using System.Configuration;
 
 namespace TestProject
 {
@@ -16,6 +20,12 @@ namespace TestProject
         public RegisteForm()
         {
             InitializeComponent();
+        }
+
+        private static NpgsqlConnection GetConnection()
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["MyKey"].ConnectionString;
+            return new NpgsqlConnection(connectionString);
         }
 
         readonly NpgsqlConnection conn = new("Port=5433;Host=127.0.0.1;Database=test_cs;Username=postgres;Password=shadow213;Persist Security Info=True");
@@ -27,41 +37,40 @@ namespace TestProject
             string first_name = tb_firstName.Text;
             string last_name = tb_lastName.Text;
 
-            try
+            string directory = AppDomain.CurrentDomain.BaseDirectory + "/images/";
+            if (!Directory.Exists(directory))
             {
-                if (Check_employee(employee_id))
-                {
-                    conn.Open();
-                    var sql = "INSERT INTO employee(employee_number, first_name, last_name) VALUES(@employee_number, @first_name, @last_name)";
-                    using var cmd = new NpgsqlCommand(sql, conn);
-
-                    cmd.Parameters.AddWithValue("employee_number", employee_id);
-                    cmd.Parameters.AddWithValue("first_name", first_name);
-                    cmd.Parameters.AddWithValue("last_name", last_name);
-                    cmd.Prepare();
-
-                    cmd.ExecuteNonQuery();
-
-                    MessageBox.Show("Employee Registered");
-
-                    this.Close();
-                }  
-                else
-                {
-                    tb_employeeId.Clear();
-                    tb_firstName.Clear();
-                    tb_lastName.Clear();
-                }
+                Directory.CreateDirectory(directory);
             }
-            catch
+
+            NpgsqlConnection conn = GetConnection();
+            string sql = "INSERT INTO employee(employee_number, first_name, last_name, image) VALUES(@employee_number, @first_name, @last_name, @image)";
+            if (fileName == null)
             {
-                MessageBox.Show("Error");
+                fileName = "null";
             }
-            finally
+            string pathFile = directory + fileName;
+            
+
+            using (var cmd = new NpgsqlCommand(sql, conn))
             {
-                conn.Close();
+                conn.Open();
+
+                cmd.Parameters.AddWithValue("employee_number", employee_id);
+                cmd.Parameters.AddWithValue("first_name", first_name);
+                cmd.Parameters.AddWithValue("last_name", last_name);
+                cmd.Parameters.AddWithValue("image", pathFile);
+                cmd.Prepare();
+
+                cmd.ExecuteNonQuery();
+                img.Save(pathFile);
+
+                MessageBox.Show("Employee Registered");
+
+                this.Close();
             }
-                      
+                
+
         }
 
         private void btn_clear_Click(object sender, EventArgs e)
@@ -103,5 +112,53 @@ namespace TestProject
             }
         }
 
+        Image? img;
+        string? fileName;
+
+        private void btn_upload_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp)|*.jpg; *.jpeg; *.gif; *.bmp";
+            ofd.InitialDirectory = @"C:\";
+            ofd.Title = "Save Image";
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                Bitmap b = new Bitmap(ofd.FileName);
+                img = resizeImage(b, new Size(192, 192));
+                pb_profilepic.Image = img;
+                fileName = ofd.SafeFileName;
+            }
+        }
+
+        // IMG resize
+        private static System.Drawing.Image resizeImage(System.Drawing.Image imgToResize, Size size)
+        {
+            //Get the image current width  
+            int sourceWidth = imgToResize.Width;
+            //Get the image current height  
+            int sourceHeight = imgToResize.Height;
+            float nPercent = 0;
+            float nPercentW = 0;
+            float nPercentH = 0;
+            //Calulate  width with new desired size  
+            nPercentW = ((float)size.Width / (float)sourceWidth);
+            //Calculate height with new desired size  
+            nPercentH = ((float)size.Height / (float)sourceHeight);
+            if (nPercentH < nPercentW)
+                nPercent = nPercentH;
+            else
+                nPercent = nPercentW;
+            //New Width  
+            int destWidth = (int)(sourceWidth * nPercent);
+            //New Height  
+            int destHeight = (int)(sourceHeight * nPercent);
+            Bitmap b = new Bitmap(destWidth, destHeight);
+            Graphics g = Graphics.FromImage((System.Drawing.Image)b);
+            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+            // Draw image with new width and height  
+            g.DrawImage(imgToResize, 0, 0, destWidth, destHeight);
+            g.Dispose();
+            return (System.Drawing.Image)b;
+        }
     }
 }
