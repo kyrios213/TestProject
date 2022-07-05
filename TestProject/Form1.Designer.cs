@@ -38,7 +38,6 @@
             this.lb_test = new System.Windows.Forms.Label();
             this.btn_log = new System.Windows.Forms.Button();
             this.pb_profilepic = new System.Windows.Forms.PictureBox();
-            this.btn_test = new System.Windows.Forms.Button();
             this.lb_nameread = new System.Windows.Forms.Label();
             this.lb_timeinread = new System.Windows.Forms.Label();
             this.lb_timeoutread = new System.Windows.Forms.Label();
@@ -134,7 +133,7 @@
             // 
             // btn_log
             // 
-            this.btn_log.Location = new System.Drawing.Point(374, 408);
+            this.btn_log.Location = new System.Drawing.Point(374, 393);
             this.btn_log.Name = "btn_log";
             this.btn_log.Size = new System.Drawing.Size(75, 23);
             this.btn_log.TabIndex = 10;
@@ -151,16 +150,6 @@
             this.pb_profilepic.Size = new System.Drawing.Size(192, 192);
             this.pb_profilepic.TabIndex = 11;
             this.pb_profilepic.TabStop = false;
-            // 
-            // btn_test
-            // 
-            this.btn_test.Location = new System.Drawing.Point(461, 408);
-            this.btn_test.Name = "btn_test";
-            this.btn_test.Size = new System.Drawing.Size(75, 23);
-            this.btn_test.TabIndex = 14;
-            this.btn_test.Text = "Test";
-            this.btn_test.UseVisualStyleBackColor = true;
-            this.btn_test.Click += new System.EventHandler(this.btn_test_Click);
             // 
             // lb_nameread
             // 
@@ -229,7 +218,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(548, 443);
+            this.ClientSize = new System.Drawing.Size(474, 443);
             this.Controls.Add(this.tb_idread);
             this.Controls.Add(this.tb_timeoutread);
             this.Controls.Add(this.tb_timeinread);
@@ -237,7 +226,6 @@
             this.Controls.Add(this.lb_timeoutread);
             this.Controls.Add(this.lb_timeinread);
             this.Controls.Add(this.lb_nameread);
-            this.Controls.Add(this.btn_test);
             this.Controls.Add(this.pb_profilepic);
             this.Controls.Add(this.btn_log);
             this.Controls.Add(this.lb_test);
@@ -248,7 +236,8 @@
             this.Controls.Add(this.btn_input);
             this.Controls.Add(this.tb_input1);
             this.Controls.Add(this.lb_input);
-            this.MinimumSize = new System.Drawing.Size(520, 280);
+            this.MaximumSize = new System.Drawing.Size(490, 482);
+            this.MinimumSize = new System.Drawing.Size(490, 482);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
@@ -271,7 +260,6 @@
         private Label lb_test;
         private Button btn_log;
         private PictureBox pb_profilepic;
-        private Button btn_test;
         private Label lb_nameread;
         private Label lb_timeinread;
         private Label lb_timeoutread;

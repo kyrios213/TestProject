@@ -16,7 +16,34 @@ namespace TestProject
         }
         private void Form1_Load(object sender, EventArgs e)
         {
+            NpgsqlConnection conn1 = GetConnection();
+            NpgsqlConnection conn2 = GetConnection();
+            string sql_employee = "CREATE TABLE IF NOT EXISTS employee (" +
+                "id SERIAL PRIMARY KEY NOT NULL," +
+                "employee_number VARCHAR(255)," +
+                "first_name VARCHAR(255)," +
+                "last_name VARCHAR(255)," +
+                "image VARCHAR(255))";
 
+            string sql_timeinout = "CREATE TABLE IF NOT EXISTS timeinout (" +
+                "id SERIAL PRIMARY KEY NOT NULL," +
+                "employee_id INT," +
+                "date VARCHAR(255)," +
+                "time_in VARCHAR(255)," +
+                "time_out VARCHAR(255)," +
+                "CONSTRAINT fk_employee FOREIGN KEY(employee_id) REFERENCES employee(id) ON DELETE CASCADE)";
+
+            using (NpgsqlCommand cmd = new NpgsqlCommand(sql_employee, conn1))
+            {
+                conn1.Open();
+                cmd.ExecuteNonQuery();
+            }
+
+            using (NpgsqlCommand cmd = new NpgsqlCommand(sql_timeinout, conn2))
+            {
+                conn2.Open();
+                cmd.ExecuteNonQuery();
+            }
         }
         private static NpgsqlConnection GetConnection()
         {
@@ -73,7 +100,7 @@ namespace TestProject
                     }
                     else
                     {
-                        MessageBox.Show("Error In Time in");
+                        MessageBox.Show("Error In Time in", "Time In Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
 
@@ -101,18 +128,18 @@ namespace TestProject
                         }
                         else
                         {
-                            MessageBox.Show("Error In Time out");
+                            MessageBox.Show("Error In Time out", "Time Out Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                     else
                     {
-                        MessageBox.Show("Employee Already Timed-out");
+                        MessageBox.Show("Employee Already Timed-out", "Time Out Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
 
                 }
                 else
                 {
-                    MessageBox.Show("Must Time-in First");
+                    MessageBox.Show("Must Time-in First", "Time Out Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }        
         }
@@ -137,9 +164,7 @@ namespace TestProject
                 rbtn_timein.Checked = false;
             }
         }
-
-        
-
+       
         private void btn_log_Click(object sender, EventArgs e)
         {
             List<string> time_inList = new();
@@ -186,49 +211,6 @@ namespace TestProject
                     MessageBox.Show($"Log {currentDate.ToString()} Created at: {directory}", "Log Created", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-        }     
-
-        private void btn_test_Click(object sender, EventArgs e)
-        {
-            NpgsqlConnection conn3 = GetConnection();
-            try
-            {
-                int id = 16;
-                string date = "01/07/2022";
-
-                conn3.Open();
-                string sql_check = "SELECT (time_in, time_out) FROM timeinout WHERE employee_id = @employee_id AND date = @date";
-                using var cmd_check = new NpgsqlCommand(sql_check, conn3);
-
-                cmd_check.Parameters.AddWithValue("employee_id", id);
-                cmd_check.Parameters.AddWithValue("date", date);
-                cmd_check.Prepare();
-
-                var reader = cmd_check.ExecuteReader();
-                object obj;
-
-
-                if (reader.Read() == true)
-                {
-                    obj = reader.GetValue(0);
-                }
-                else
-                {
-                    System.Diagnostics.Debug.WriteLine(reader.Read().ToString());
-                    System.Diagnostics.Debug.WriteLine("false");
-                }
-
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine(ex.ToString());
-            }
-            finally
-            {
-                conn3.Close();
-            }
-        }
-
-       
+        }           
     }
 }

@@ -6,6 +6,9 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Product></Product>
+    <PackageIcon></PackageIcon>
+    <AssemblyName>LogTool</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

@@ -24,7 +24,7 @@ namespace TestProject
             return new NpgsqlConnection(connectionString);
         }
 
-        // Check Functions
+        #region Check Functions
         public bool Check_Timein(int id, string date)
         {
             NpgsqlConnection conn = GetConnection();
@@ -98,9 +98,9 @@ namespace TestProject
                 conn.Close();
             }
         }
-        // End of Check Functions
+        #endregion
 
-        // Get Functions
+        #region Get Functions
 
         // Get List Functions
         public List<string> Get_List_Timein(string date)
@@ -149,6 +149,10 @@ namespace TestProject
 
                 while (reader.Read())
                 {
+                    if (reader.IsDBNull(0))
+                    {
+                        timeouts.Add(" ");
+                    }
                     timeouts.Add(reader.GetString(0));
                 }
                 return timeouts;
@@ -394,9 +398,9 @@ namespace TestProject
 
         // End Of Get Employee Data Functions
 
-        // End of Get Functions
+        #endregion
 
-        // Insert/Update Functions
+        #region Insert/Update Functions
 
         public bool Add_Timein(int id, string date, string time)
         {
@@ -451,7 +455,7 @@ namespace TestProject
 
             }
         }
-
+        #endregion
 
     }
 }
